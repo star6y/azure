@@ -91,3 +91,17 @@ app.http('newDeck', {
         };
     },
 });
+
+app.http('flipCoin', {
+    methods: ['GET'],
+    authLevel: 'anonymous',
+    route: 'flipcoin',
+    handler: async (request, context) => {
+        // Simulate a coin flip with Math.random()
+        const result = Math.random() < 0.5 ? 'H' : 'T';
+        return {
+            // Return the result as JSON
+            jsonBody: { result: result }
+        };
+    },
+});

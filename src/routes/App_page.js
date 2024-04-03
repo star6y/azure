@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import Deck from '../common/Deck';
 
+
 async function loader({ request }) {
   const result = await fetch("/api/deck", {
     signal: request.signal,
@@ -17,10 +18,15 @@ async function loader({ request }) {
   }
 }
 
+
+
 function App() {
   const { data } = useLoaderData();
   const [decks, setDecks] = useState(data);
   const [name, setName] = useState("");
+//------------------------------------
+  const [coinFlipResult, setCoinFlipResult] = useState(null);
+
 
   async function newDeck() {
     const result = await fetch("/api/deck", {
@@ -36,9 +42,23 @@ function App() {
     }
   }
 
+// -----------------------
+async function flipCoin() {
+  try {
+    const response = await fetch("/api/flipcoin");
+    if (response.ok) {
+      const data = await response.json();
+      setCoinFlipResult(data.result);
+    }
+  } catch (error) {
+    console.error("Failed to flip coin", error);
+  }
+}
+// ------------------
   return (
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <button onClick={flipCoin}>Flip Coin</button>
+        {coinFlipResult && <p>Result: {coinFlipResult}</p>}        
         <div>
             {decks.map(deck => <Deck key={deck._id} deck={deck}></Deck>)}
             <input value={name} placeholder="name" onChange={e=>setName(e.target.value)}></input>
@@ -48,8 +68,9 @@ function App() {
   );
 }
 
+
 export const App_Page = {
   path:"/",
-  element:<App></App>,
+  element: <App></App>,
   loader:loader
 }

@@ -16,6 +16,9 @@ async function loader({ request, params }) {
   }
 }
 
+
+// this "Deck()" is a compoenent because it is returning a React element
+// then can be used as <Deck></Deck> or <Deck />
 function Deck() {
   const { deck } = useLoaderData();
   // we will be updating the deck as we go...
@@ -51,6 +54,6 @@ function Deck() {
 
 export const Deck_route = {
   path:"/deck/:id",
-  element:<Deck></Deck>,
+  element: <Deck></Deck>,
   loader:loader
 }

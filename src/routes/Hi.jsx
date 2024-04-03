@@ -6,16 +6,8 @@ export const hiRoute = {
 }
 
 export function Hi() {
-
     let { id } = useParams();
-
-
-
-    return <div>Hi yall! 
-        if: {id}
-
+    return <div>Hi  {id}
         <Link to="/">go home</Link>
-
-
     </div>
 }

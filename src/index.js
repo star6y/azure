@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import { App_Page } from './routes/App_page'
 import { Deck_route } from './routes/Deck';
+import { hiRoute } from './routes/Hi';
 
 
 // create the router -- paths are configured here
@@ -18,7 +19,8 @@ const router = createBrowserRouter([
     element: <App/>,
     children: [
       App_Page,
-      Deck_route
+      Deck_route,
+      hiRoute,
     ],
     errorElement: <span>oops</span>
   },
