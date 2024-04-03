@@ -98,10 +98,21 @@ app.http('flipCoin', {
     route: 'flipcoin',
     handler: async (request, context) => {
         // Simulate a coin flip with Math.random()
+        const auth_header = request.headers.get('X-MS-CLIENT-PRINCIPAL')
+        let token = null
+        if (auth_header) {
+            token = Buffer.from(auth_header, "base64");
+            token = JSON.parse(token.toString());
+            console.log(token)
+        }
+
+
         const result = Math.random() < 0.5 ? 'H' : 'T';
         return {
             // Return the result as JSON
             jsonBody: { result: result }
         };
+
+        
     },
 });
